@@ -17,7 +17,7 @@ If you know the origin I would like to credit the originator.  If you test it I'
 
 Message me on Reddit u/j_oshreve if you are really stuck.  I don't have much time to help, but can answer the occasional question.  Also feel free to put in a pull request if you come up with something crafty and want to give others access to it.
 
-![Hot Swap in OpenSCAD](./resources/OpenSCAD_hotswap.png)
+![Hot Swap in OpenSCAD](./resources/Openscad_hot_swap.png)
 
 ## Status / Future
 FWIW, the cadquery version is essentially a double translation and is now a bit of a mess.  I wanted to share with the community as the first version of dactyl-manuform that exports as a STEP file, allowing easier editing.  I am happy to maintain the code, but I am unlikely to spend much more time cleaning it up as I am working on an entirely new object-oriented generator in Python/cadquery.  This was my proof of concept for eliminating OpenSCAD from the workflow and I thought it worth giving back to the community. 
