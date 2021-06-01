@@ -294,7 +294,6 @@ def apply_key_geometry(
         column_style=column_style,
 ):
     print('apply_key_geometry()')
-    print(column_x_delta)
 
     column_angle = beta * (centercol - column)
 
@@ -327,8 +326,8 @@ def apply_key_geometry(
         shape = translate_fn(shape, [0, 0, column_radius])
         shape = translate_fn(shape, column_offset(column))
 
-    # shape = rotate_y_fn(shape, tenting_angle)
-    # shape = translate_fn(shape, [0, 0, keyboard_z_offset])
+    shape = rotate_y_fn(shape, tenting_angle)
+    shape = translate_fn(shape, [0, 0, keyboard_z_offset])
 
     return shape
 

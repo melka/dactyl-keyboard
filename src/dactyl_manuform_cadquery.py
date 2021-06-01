@@ -19,7 +19,7 @@ def rad2deg(rad: float) -> float:
 # ## Shape parameters ##
 # ######################
 
-show_caps = True
+show_caps = False
 
 nrows = 5  # key rows
 ncols = 6  # key columns
@@ -1412,15 +1412,15 @@ def screw_insert_all_shapes(bottom_radius, top_radius, height):
 screw_insert_height = 3.8
 screw_insert_bottom_radius = 5.31 / 2
 screw_insert_top_radius = 5.1 / 2
-screw_insert_holes = screw_insert_all_shapes(
-    screw_insert_bottom_radius, screw_insert_top_radius, screw_insert_height
-)
-screw_insert_outers = screw_insert_all_shapes(
-    screw_insert_bottom_radius + 1.6,
-    screw_insert_top_radius + 1.6,
-    screw_insert_height + 1.5,
-)
-screw_insert_screw_holes = screw_insert_all_shapes(1.7, 1.7, 350)
+# screw_insert_holes = screw_insert_all_shapes(
+#     screw_insert_bottom_radius, screw_insert_top_radius, screw_insert_height
+# )
+# screw_insert_outers = screw_insert_all_shapes(
+#     screw_insert_bottom_radius + 1.6,
+#     screw_insert_top_radius + 1.6,
+#     screw_insert_height + 1.5,
+# )
+# screw_insert_screw_holes = screw_insert_all_shapes(1.7, 1.7, 350)
 
 wire_post_height = 7
 wire_post_overhang = 3.5
@@ -1473,15 +1473,15 @@ def model_side(side="right"):
     shape = shape.union(thumb(side=side))
     shape = shape.union(thumb_connectors())
     s2 = cq.Workplane('XY').union(case_walls())
-    s2 = union([s2, *screw_insert_outers])
+    # s2 = union([s2, *screw_insert_outers])
     # s2 = s2.union(teensy_holder())
-    s2 = s2.union(usb_holder())
+    # s2 = s2.union(usb_holder())
 
-    s2 = s2.cut(rj9_space())
-    s2 = s2.cut(usb_holder_hole())
-    s2 = s2.cut(union(screw_insert_holes))
+    # s2 = s2.cut(rj9_space())
+    # s2 = s2.cut(usb_holder_hole())
+    # s2 = s2.cut(union(screw_insert_holes))
 
-    shape = shape.union(rj9_holder())
+    # shape = shape.union(rj9_holder())
     shape = shape.union(s2, tol=.01)
     # shape = shape.union(wire_posts())
     block = cq.Workplane("XY").box(350, 350, 40)
@@ -1499,31 +1499,31 @@ def model_side(side="right"):
 
 
 mod_r = model_side(side="right")
-cq.exporters.export(w=mod_r, fname=path.join(r"..", "things", r"right_og_py.step"), exportType='STEP')
+cq.exporters.export(w=mod_r, fname=path.join(r"..", "step", r"right_melka.step"), exportType='STEP')
 
-if symmetry == "asymmetric":
-    mod_l = model_side(side="left")
-    cq.exporters.export(w=mod_l, fname=path.join(r"..", "things", r"left_og_py.step"), exportType='STEP')
+# if symmetry == "asymmetric":
+#     mod_l = model_side(side="left")
+#     cq.exporters.export(w=mod_l, fname=path.join(r"..", "things", r"left_og_py.step"), exportType='STEP')
 
-else:
-    cq.exporters.export(w=mod_r.mirror('YZ'), fname=path.join(r"..", "things", r"left_og_py.step"), exportType='STEP')
-
-
-def baseplate():
-    shape = mod_r
-
-    shape = shape.translate((0, 0, -0.1))
-
-    square = cq.Workplane('XY').rect(1000, 1000)
-    for wire in square.wires().objects:
-        plane = cq.Workplane('XY').add(cq.Face.makeFromWires(wire))
-
-    shape = shape.intersect(plane)
-
-    return shape
+# else:
+#     cq.exporters.export(w=mod_r.mirror('YZ'), fname=path.join(r"..", "things", r"left_og_py.step"), exportType='STEP')
 
 
-base = baseplate()
+# def baseplate():
+#     shape = mod_r
 
-cq.exporters.export(w=base, fname=path.join(r"..", "things", r"plate_og_py.step"), exportType='STEP')
-cq.exporters.export(w=base, fname=path.join(r"..", "things", r"plate_og_py.dxf"), exportType='DXF')
+#     shape = shape.translate((0, 0, -0.1))
+
+#     square = cq.Workplane('XY').rect(1000, 1000)
+#     for wire in square.wires().objects:
+#         plane = cq.Workplane('XY').add(cq.Face.makeFromWires(wire))
+
+#     shape = shape.intersect(plane)
+
+#     return shape
+
+
+# base = baseplate()
+
+# cq.exporters.export(w=base, fname=path.join(r"..", "things", r"plate_og_py.step"), exportType='STEP')
+# cq.exporters.export(w=base, fname=path.join(r"..", "things", r"plate_og_py.dxf"), exportType='DXF')
